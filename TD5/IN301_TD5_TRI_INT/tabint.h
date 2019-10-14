@@ -1,7 +1,6 @@
 #ifndef _TABINT_H
 #define _TABINT_H
 
-
 struct tabint {
     int N;  // Taille du tableau
     int *T; // Pointeur vers le tableau

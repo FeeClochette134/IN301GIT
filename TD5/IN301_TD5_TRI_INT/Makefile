@@ -1,12 +1,16 @@
+
 visu: stat.pdf
 	evince stat.pdf &
 
 
-stat.pdf: tri_bulle stat.gplt test_tri_bulle.data
+stat.pdf: tri_bulle stat.gplt test_tri_bulle.data test_tri_fusion.data
 	gnuplot stat.gplt
 
 test_tri_bulle.data: tri_bulle
 	./tri_bulle
+
+test_tri_fusion.data : tri_fusion
+	./tri_fusion
 
 
 # Le tri à bulles
@@ -16,6 +20,13 @@ tri_bulle: tri_bulle.o tabint.o
 
 tri_bulle.o: tri_bulle.c tabint.h stat.h
 	gcc -Wall -c tri_bulle.c
+	
+# le tri fusion
+tri_fusion : tri_fusion.o tabint.o
+	gcc -Wall -o tri_fusion tri_fusion.o tabint.o
+
+tri_fusion.o: tri_fusion.c tabint.h stat.h
+	gcc -Wall -c tri_fusion.c
 
 
 # La bibliothèque de manipulation de tableaux

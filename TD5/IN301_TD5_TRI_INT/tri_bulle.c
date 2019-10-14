@@ -14,6 +14,22 @@ void tri_bulle_tabint(TABINT T) {
 	}
 }
 
+struct stat stat_moy (int N, int A) {
+	NBECH = 0 ; // Compteur d'échange de contenu
+	NBCOMP = 0 ; // nombre de comparaisons entre cases
+	int K = 30 ;
+	struct stat stats ;
+	for(int i=0;i<A;i++) {
+		TABINT T = gen_alea_tabint(N,K) ;
+		tri_bulle_tabint(T) ;
+		sup_tabint(T) ;
+	}
+	stats.N = N ;
+	stats.nb_moy_comp = (NBCOMP*1.0)/(A*1.0) ;
+	stats.nb_moy_ech = (NBECH*1.0)/(A*1.0) ;
+	return stats ;
+}
+
 /*TABINT gen_croissant_tabint(int N,int K) {
 	TABINT T ; int a = 0 ;
 	T.T = malloc(N*sizeof(int)) ;
@@ -31,22 +47,6 @@ void tri_bulle_tabint(TABINT T) {
 	}
 	return T;
 }*/
-
-struct stat stat_moy (int N, int A) {
-	NBECH = 0 ; // Compteur d'échange de contenu
-	NBCOMP = 0 ; // nombre de comparaisons entre cases
-	int K = 30 ;
-	struct stat stats ;
-	for(int i=0;i<N;i++) {
-		TABINT T = gen_alea_tabint(N,K) ;
-		tri_bulle_tabint(T) ;
-		sup_tabint(T) ;
-	}
-	stats.N = N ;
-	stats.nb_moy_comp = (NBCOMP*1.0)/(A*1.0) ;
-	stats.nb_moy_ech = (NBECH*1.0)/(A*1.0) ;
-	return stats ;
-}
 
 /*void ecrire_dans_test_tri_bulle() {
 	int i;
@@ -88,7 +88,5 @@ int main() {
 	}
 	fclose(F) ;
 	
-	// Le code ci-dessous est provisoire, juste pour faire marche l'enchainement du Makefile
-	// Fin du code provisoire
 	exit(0);
 }

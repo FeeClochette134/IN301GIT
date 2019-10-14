@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+
 // #####
 // 1. Génération, suppression et affichage de tableaux
 // #####
@@ -55,6 +56,38 @@ int scan_ech_tabint (TABINT T, int fin)  {
 		a = a + ech_tabint(T,i) ;
 	}
 	return a ;
+}
+
+void fusionner(TABINT T,int deb,int mil,int fin) {
+	int cmp1 = deb ; int cmp2 = mil+1 ; int i = 0 ;
+	int* tab_temp = malloc((mil-deb+1)*sizeof(int)) ;
+	
+	// On recopie les éléments du début du tableau
+	for(i=deb;i<=mil;i++) {
+		tab_temp[i-deb] = T.T[i] ;
+	}
+	i = deb ;
+	
+	while(i<=fin && cmp1 != mil+1) {
+		if(cmp2==(fin+1)) {
+			// le tableau 2 est fini : on recopie le 1 à la suite
+			T.T[i] = tab_temp[cmp1-deb] ;
+			cmp1++ ;
+		}
+		
+		else if(tab_temp[cmp1-deb]<T.T[cmp2]) {
+			NBCOMP++ ;
+			//on ajoute un élément du premier tableau
+			T.T[i] = tab_temp[cmp1-deb] ;
+			cmp1++ ;
+		}
+		else {
+			T.T[i] = T.T[cmp2] ;
+			cmp2++ ;
+		}
+		i++ ;
+	}
+	free(tab_temp) ;
 }
 
 /*void tri_bulle_tabint(TABINT T) {
